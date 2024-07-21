@@ -29,6 +29,7 @@ export async function fetchRevenue() {
 }
 
 export async function fetchLatestInvoices() {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   try {
     const data = await sql<LatestInvoiceRaw>`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
@@ -65,6 +66,8 @@ export async function fetchCardData() {
       customerCountPromise,
       invoiceStatusPromise,
     ]);
+
+    await new Promise((resolve) => setTimeout(resolve, 6000));
 
     const numberOfInvoices = Number(data[0].rows[0].count ?? '0');
     const numberOfCustomers = Number(data[1].rows[0].count ?? '0');
